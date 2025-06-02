@@ -1,0 +1,72 @@
+{% extends 'app/base.html' %}
+{% load static %}
+
+
+{% block title %}Welcome – Daily Save{% endblock %}
+
+{% block content %}
+  <div class="slideshow">
+    <div class="slide active" style="background-image: url('{% static 'images/home1.png' %}');">
+      <div class="slide-text">
+        <h1>Daily Save</h1>
+        <p>Simplifying your daily contributions</p>
+      </div>
+    </div>
+    <div class="slide" style="background-image: url('{% static 'images/home2.png' %}');">
+      <div class="slide-text">
+        <h1>Track Your Payments</h1>
+        <p>View your daily progress and get real-time updates</p>
+      </div>
+    </div>
+    <div class="slide" style="background-image: url('{% static 'images/home3.png' %}');">
+      <div class="slide-text">
+        <h1>Transparent & Secure</h1>
+        <p>No paper, no confusion. Just clarity.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Navigation Arrows -->
+  <div class="nav-arrows">
+    <button id="prev">&#10094;</button>
+    <button id="next">&#10095;</button>
+  </div>
+
+  <!-- Fixed Buttons -->
+  <div class="home-fixed-buttons">
+    <a href="{% url 'login' %}" class="home-btn">Login</a>
+    <a href="{% url 'register' %}" class="home-btn">Register</a>
+  </div>
+
+  <!-- Fixed Footer -->
+  <footer class="fixed-footer">
+    <a href="{% url 'privacy_policy' %}">Privacy Policy</a>
+    <a href="{% url 'terms' %}">T & C</a>
+    <a href="#">© 2025</a>
+  </footer>
+
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    let index = 0;
+
+    function showSlide(i) {
+      slides.forEach(slide => slide.classList.remove('active'));
+      slides[i].classList.add('active');
+    }
+
+    function nextSlide() {
+      index = (index + 1) % slides.length;
+      showSlide(index);
+    }
+
+    function prevSlide() {
+      index = (index - 1 + slides.length) % slides.length;
+      showSlide(index);
+    }
+
+    document.getElementById('next').addEventListener('click', nextSlide);
+    document.getElementById('prev').addEventListener('click', prevSlide);
+
+    setInterval(nextSlide, 5000);
+  </script>
+{% endblock %}

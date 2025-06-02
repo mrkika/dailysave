@@ -1,0 +1,174 @@
+{% extends 'app/base.html' %}
+{% load static %}
+
+
+{% block title %}Terms & Conditions | Daily Save{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/terms.css' %}">
+
+
+
+<div class="tc-container">
+    <p class="mt-3">
+        <a href="{% url 'dashboard' %}">&larr; Back to Dashboard</a></p>
+    <h1 class="tc-header">Terms &amp; Conditions</h1>
+
+    <p class="tc‐intro">
+        Welcome to Daily Save! By registering or using the Daily Save application (“App”), you agree to be bound by
+        these Terms &amp; Conditions (“T&amp;C”). Please read them carefully before proceeding.
+    </p>
+
+    <hr>
+
+    <section class="tc-section">
+        <h2>1. Definitions</h2>
+        <ul>
+            <li><strong>“User”</strong> means any individual who registers for or uses the App.</li>
+            <li><strong>“Plan”</strong> means the daily savings plan a User selects at the beginning of each month.</li>
+            <li><strong>“Payment Proof”</strong> means an uploaded receipt (e.g., POS screenshot) confirming that a User
+                has made the daily contribution.</li>
+            <li><strong>“Collector”</strong> refers to the individual or administrator who verifies Payment Proofs and
+                approves them in the system.</li>
+            <li><strong>“Withdrawal”</strong> means the User’s request to receive their net savings back, after
+                deducting the collector’s fee.</li>
+        </ul>
+    </section>
+
+    <section class="tc-section">
+        <h2>2. User Registration &amp; Account</h2>
+        <ol>
+            <li>Users must register with a valid phone number, email address, and password.</li>
+            <li>Upon registration, each User is assigned a unique Account ID. This ID must be used when making deposits
+                to ensure payments are properly attributed.</li>
+            <li>Users are responsible for maintaining the confidentiality of their login credentials. Any activity under
+                a User’s account is their sole responsibility.</li>
+        </ol>
+    </section>
+
+    <section class="tc-section">
+        <h2>3. Monthly Contribution Plans</h2>
+        <ol>
+            <li>At the start of each calendar month, a User must select a daily contribution amount (for example, ₦500,
+                ₦1,000, ₦5,000, etc.).</li>
+            <li>Once selected, the chosen daily amount remains fixed for the entire month. Users cannot change their
+                plan mid‐month. To change, they must wait until the next calendar month begins.</li>
+            <li>Each Plan corresponds to the number of days in that specific month (e.g., 28–31 days). Users are
+                encouraged to contribute every single day of the month.</li>
+        </ol>
+    </section>
+
+    <section class="tc-section">
+        <h2>4. Payment Proof &amp; Approval</h2>
+        <ol>
+            <li>Every day, the User makes their cash or POS deposit into the collector’s account, using their Account ID
+                as the payment reference.</li>
+            <li>After payment, the User must upload a clear image of their payment receipt (Payment Proof) to the App.
+                Each Payment Proof is marked “Pending” until verified by the Collector.</li>
+            <li>The Collector reviews Payment Proofs and marks each as <em>Approved</em> or <em>Rejected</em>:
+                <ul>
+                    <li><strong>Approved:</strong> Payment is valid, and that day is counted as “Paid”.</li>
+                    <li><strong>Rejected:</strong> Payment is invalid or receipt is unclear. The User will receive a
+                        “Rejected” notification and can re‐upload a correct proof.</li>
+                </ul>
+            </li>
+            <li>Users may pay ahead for future dates. Once a future date’s proof is approved, that date is marked “Paid”
+                even before it arrives.</li>
+        </ol>
+    </section>
+
+    <section class="tc-section">
+        <h2>5. Collector’s Fee &amp; Payout</h2>
+        <ol>
+            <li>Regardless of how many days a User actually pays (whether they skip days or pay in advance), the
+                Collector’s fee for that User each month equals exactly one day’s contribution amount. For example, if a
+                User’s daily amount is ₦1,000, the Collector’s fee for that month is a flat ₦1,000.</li>
+            <li><strong>Total Paid</strong> = (Number of Approved Payment Proofs) × (Daily Amount).
+                <br><strong>Collector Fee</strong> = (Daily Amount).
+                <br><strong>Refund</strong> = Total Paid − Collector Fee.
+            </li>
+            <li>Users may only request a Withdrawal on the <strong>25<sup>th</sup> day of each month</strong>. This
+                policy encourages Users to contribute for as many days as possible before receiving any payout.
+                Withdrawals requested on any other date will not be processed.</li>
+            <li>Any Withdrawal request submitted on the 25<sup>th</sup> day is subject to Collector review. Once
+                approved, the net amount will be disbursed via bank transfer or mobile money within 48 hours.</li>
+        </ol>
+    </section>
+
+    <section class="tc-section">
+        <h2>6. Deposit Requests</h2>
+        <ol>
+            <li>If a User chooses to make a lump‐sum deposit (for multiple days or the entire month), they can generate
+                a Deposit Reference from the App. That reference is unique and must be given to the Collector.</li>
+            <li>The Collector will monitor pending Deposit Requests and verify payment once the User uploads proof.
+                Users must upload Payment Proof immediately after depositing.</li>
+            <li>Failure to upload Payment Proof within 24 hours of deposit may result in the Deposit Request being
+                canceled or rejected.</li>
+        </ol>
+    </section>
+
+    <section class="tc-section">
+        <h2>7. User Obligations</h2>
+        <ol>
+            <li>Users agree to upload clear, unaltered Payment Proofs. Any attempt to forge or tamper with receipts is
+                strictly prohibited.</li>
+            <li>Users are responsible for ensuring their Payment Proof images are legible. Rejected proofs may delay the
+                counting of that day as “Paid.”</li>
+            <li>Users must maintain accurate contact information (phone and email) so that notifications and reminders
+                can reach them.</li>
+        </ol>
+    </section>
+
+    <section class="tc-section">
+        <h2>8. Privacy &amp; Data Security</h2>
+        <ol>
+            <li>Daily Save collects only the information necessary to provide its services: phone number, email,
+                first/last name, and uploaded Payment Proofs.</li>
+            <li>All user‐uploaded images (Payment Proof) are stored securely. We do not share, sell, or otherwise
+                disclose user data to third parties without explicit consent, except when required by law.</li>
+            <li>Users retain the right to request deletion of their account and data by contacting support at <a
+                    href="mailto:support@dailysave.com">support@dailysave.com</a>. Upon deletion, all associated Payment
+                Proofs, Deposit Requests, Withdrawal Requests, and Profile data will be permanently removed.</li>
+        </ol>
+    </section>
+
+    <section class="tc-section">
+        <h2>9. Limitations of Liability</h2>
+        <ol>
+            <li>Daily Save acts only as a digital ledger and does not handle money directly. All cash or POS payments
+                occur outside the App, into a shared Collector account that mirrors existing community practices.</li>
+            <li>Although we strive to ensure accurate tracking, we are not responsible for human errors—such as a
+                Collector failing to approve a valid proof in a timely manner. Users should keep backup receipts in case
+                of disputes.</li>
+            <li>Daily Save is not liable for any loss or damage arising from User negligence, fraud, or misuse of the
+                App.</li>
+        </ol>
+    </section>
+
+    <section class="tc-section">
+        <h2>10. Modifications to These Terms</h2>
+        <ol>
+            <li>Daily Save reserves the right to modify or update these Terms &amp; Conditions at any time. Any changes
+                will be posted here with a “Last Updated” date at the top.</li>
+            <li>Users will receive an in‐App notification when material changes are made. Continued use of the App after
+                such changes constitutes acceptance of the new Terms &amp; Conditions.</li>
+        </ol>
+    </section>
+
+    <section class="tc-section">
+        <h2>11. Contact Information</h2>
+        <p>
+            If you have questions or concerns about these Terms &amp; Conditions, please reach out to us at:<br>
+            <strong>Email:</strong> <a href="mailto:support@dailysave.com">support@dailysave.com</a><br>
+            <strong>Phone:</strong> +234 813 799 2319
+        </p>
+    </section>
+
+    <p class="mt-3">
+        <a href="{% url 'dashboard' %}">&larr; Back to Dashboard</a>
+    </p>
+
+    <hr>
+    <p class="tc‐footer">© 2025 Daily Save. All rights reserved.</p>
+</div>
+{% endblock %}

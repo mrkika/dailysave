@@ -1,0 +1,44 @@
+{% extends 'app/base.html' %}
+
+{% load static %}
+
+{% block title %}Choose Plan | Daily Save{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <h2>
+        {% if is_existing %}
+        Update Your Plan for {{ now.month }}/{{ now.year }}
+        {% else %}
+        Choose Your Plan for {{ now.month }}/{{ now.year }}
+        {% endif %}
+    </h2>
+
+    {% if messages %}
+    <ul class="messages">
+        {% for msg in messages %}
+        <li class="{{ msg.tags }}">{{ msg }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+    <form method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+            {{ form.daily_amount.label_tag }}
+            {{ form.daily_amount }}
+            {% if form.daily_amount.errors %}
+            <p class="error">{{ form.daily_amount.errors.0 }}</p>
+            {% endif %}
+        </div>
+
+        <button type="submit" class="btn submit-btn">
+            {% if is_existing %}Update Plan{% else %}Save Plan{% endif %}
+        </button>
+    </form>
+
+    <p class="switch-link">
+        <a href="{% url 'dashboard' %}">Back to Dashboard</a>
+    </p>
+</div>
+{% endblock %}

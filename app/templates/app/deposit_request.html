@@ -1,0 +1,25 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% load humanize %}
+
+
+{% block title %}Deposit Request{% endblock %}
+
+{% block content %}
+<div class="container mt-4 mb-5">
+    <h2>Deposit Request</h2>
+    <p>You are about to deposit: <strong>₦{{ amount|intcomma }} (per day)</strong></p>
+    <p>Click the button below to generate a deposit reference. Give this reference to your collector when you pay in
+        cash or POS.</p>
+
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Generate Deposit Reference</button>
+    </form>
+
+    <p class="mt-3">
+        <a href="{% url 'dashboard' %}">&larr; Back to Dashboard</a>
+    </p>
+</div>
+{% endblock %}

@@ -1,0 +1,38 @@
+{# templates/admin/index.html #}
+{% extends "admin/index.html" %}
+{% load static %}
+
+{% block content %}
+{{ block.super }}
+<div class="module"
+    style="margin-top: 20px; padding: 10px; border: 1px solid #ddd; background: #f9f9f9; border-radius: 4px;">
+    <h2>Quick Links</h2>
+    <ul>
+        <li>
+            <a href="{% url 'collector_dashboard' %}" class="link-primary">
+                📥 Go to Collector Dashboard
+            </a>
+        </li>
+    </ul>
+</div>
+
+<div class="module"
+    style="margin-top:20px; padding:12px; border:1px solid #ddd; background:#f9f9f9; border-radius:4px;">
+    <h2 style="margin-top:0; font-size:1.15rem;">Collector Quick Links</h2>
+    <ul style="list-style:none; padding-left:0;">
+        {# Count how many DepositRequests have status 'PENDING' #}
+        {% with pending_count=deposit_pending_count %}
+        <li>
+            <a href="{% url 'admin:app_depositrequest_changelist' %}?status__exact=PENDING" style="font-weight:500;">
+                🗂 Pending Deposit Requests
+                {% if pending_count > 0 %}
+                <span style="background:#e74c3c; color:white; border-radius:12px; padding:2px 8px; font-size:0.9rem;">
+                    {{ pending_count }}
+                </span>
+                {% endif %}
+            </a>
+        </li>
+        {% endwith %}
+    </ul>
+</div>
+{% endblock %}

@@ -1,0 +1,120 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %} {# if you use django-crispy-forms. Remove if not. #}
+
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+<!-- Header -->
+<header class="ds-header">
+    <div class="ds-left">
+        <div class="hamburger" id="hamburgerBtn">
+            <!-- Simple Hamburger Icon -->
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="ds-logo">Daily Save</div>
+    </div>
+    <div class="ds-user">
+        <a href="{% url 'profile' %}" class="profile-link">
+            {% if user.profile.photo %}
+            <img src="{{ user.profile.photo.url }}" alt="Profile Photo" class="profile-img">
+            {% else %}
+            <img src="{% static 'profile_pics/default.jpg' %}" alt="Default Avatar" class="profile-img">
+            {% endif %}
+
+        </a>
+        <a href="{% url 'profile' %}" class="username-link">
+            <span class="username">John Doe</span> </a>
+    </div>
+</header>
+
+<nav class="top-menu" id="topMenu">
+    <a href="{% url 'dashboard' %}">Dashboard</a>
+    <a href="{% url 'how_it_works' %}">How It Works</a>
+    <a href="{% url 'dashboard' %}">Payment History</a>
+    <a href="{% url 'choose_plan' %}">Choose Plan</a>
+
+    <body class="dashboard-page">
+        <form method="POST" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Logout</button>
+        </form>
+</nav>
+
+<div class="container mt-4">
+    <h2>My Profile</h2>
+
+    {# Show messages, e.g. “Your profile has been updated.” #}
+    {% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags }}">
+        {{ message }}
+    </div>
+    {% endfor %}
+    {% endif %}
+
+    <div class="row g-4 align-items-center">
+        <div class="col-md-4 text-center">
+            {% if user.profile.photo %}
+            <img src="{{ user.profile.photo.url }}" alt="Profile Picture" class="img-thumbnail">
+            {% else %}
+            <img src="{% static 'profile_pics/default.jpg' %}" alt="Default Avatar" class="img-thumbnail">
+            {% endif %}
+        </div>
+    
+        <div class="col-md-8">
+            <form method="POST" enctype="multipart/form-data" class="p-3 border rounded bg-light shadow-sm">
+                {% csrf_token %}
+    
+                <h5>Account Info</h5>
+                <div class="form-group mb-3">
+                    {{ u_form.first_name.label_tag }}
+                    {{ u_form.first_name }}
+                </div>
+                <div class="form-group mb-3">
+                    {{ u_form.last_name.label_tag }}
+                    {{ u_form.last_name }}
+                </div>
+                <div class="form-group mb-3">
+                    {{ u_form.email.label_tag }}
+                    {{ u_form.email }}
+                </div>
+    
+                <hr>
+    
+                <h5>Profile Settings</h5>
+                <div class="form-group mb-3">
+                    {{ p_form.photo.label_tag }}
+                    {{ p_form.photo }}
+                </div>
+                <div class="form-group mb-3">
+                    {{ p_form.user_type.label_tag }}
+                    {{ p_form.user_type }}
+                </div>
+    
+                <button type="submit" class="btn btn-primary mt-3 w-100">
+                    Save Changes
+                </button>
+            </form>
+        </div>
+    </div>
+    
+
+    <hr>
+    <p>
+        Need to change your password?
+        <a href="{% url 'password_change' %}">Click here</a>.
+    </p>
+</div>
+<!-- JavaScript to toggle hamburger menu -->
+<script>
+    const hamburgerBtn = document.getElementById('hamburgerBtn');
+    const topMenu = document.getElementById('topMenu');
+
+    hamburgerBtn.addEventListener('click', () => {
+        topMenu.classList.toggle('menu-open');
+    });
+</script>
+{% endblock %}

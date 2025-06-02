@@ -1,0 +1,486 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+
+body, html {
+  height: 100%;
+    overflow-x: hidden;/* OK to prevent horizontal scroll */
+    overflow-y: auto;
+}
+
+.slideshow {
+  position: absolute;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.slide {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+
+.slide.active {
+  opacity: 1;
+  z-index: 1;
+}
+
+.slide-text {
+  position: absolute;
+  top: 20%;
+  left: 10%;
+  color: white;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.7);
+}
+
+.slide-text h1 {
+  font-size: 3rem;
+  margin-bottom: 10px;
+}
+
+.slide-text p {
+  font-size: 1.2rem;
+}
+
+.home-fixed-buttons {
+  position: fixed;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  display: flex;
+  gap: 20px;
+}
+
+.home-btn {
+  background-color: #0A1D56; /* Navy blue */
+  color: white;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.home-btn:hover {
+  background-color: #092043;
+}
+
+.home-btn.secondary {
+  background-color: #F5C518; /* Gold */
+  color: #0A1D56;
+}
+
+.home-btn.secondary:hover {
+  background-color: #e2b800;
+}
+
+.fixed-footer {
+  position: fixed;
+  bottom: 10px;
+  width: 100%;
+  text-align: center;
+  z-index: 10;
+  font-size: 0.9rem;
+}
+
+.fixed-footer a {
+  color: white;
+  text-decoration: none;
+  margin: 0 15px;
+  background: rgba(0,0,0,0.6);
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+.nav-arrows {
+  position: fixed;
+  top: 50%;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.nav-arrows button {
+  pointer-events: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+  border: none;
+  color: white;
+  font-size: 2rem;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.nav-arrows button:hover {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+@media (max-width: 500px) {
+  .fixed-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .btn {
+    width: 160px;
+    text-align: center;
+  }
+}
+
+
+/* Replace text logo with an image logo */
+.ds-logo-img {
+    height: 50px;
+    /* adjust height as needed */
+    width: auto;
+    /* keep aspect ratio */
+    display: block;
+}
+
+/* If you need vertical centering within the header */
+.ds-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* Registration Page Styling */
+body.register-page {
+  background-color: #f8f9fa;
+  font-family: 'Segoe UI', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.form-container {
+  max-width: 400px;
+  margin: 60px auto;
+  background: white;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+}
+
+.form-container h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #0A1D56;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 500;
+  color: #333;
+}
+
+.form-group .note {
+  font-size: 12px;
+  color: #888;
+}
+
+input[type="text"],
+input[type="tel"],
+input[type="email"],
+input[type="password"] {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 15px;
+}
+
+.form-group.checkbox {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+}
+
+.form-group.checkbox input[type="checkbox"] {
+  margin-right: 10px;
+}
+
+.btn.submit-btn {
+  width: 100%;
+  background-color: #0A1D56;
+  color: white;
+  padding: 14px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.btn.submit-btn:hover {
+  background-color: #092043;
+}
+
+.switch-link {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 14px;
+}
+
+/* Login Page Styling */
+
+body.login-page {
+    background-color: #f8f9fa;
+    font-family: 'Segoe UI', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.form-footer {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 14px;
+}
+
+.form-footer a {
+    color: #0A1D56;
+    text-decoration: none;
+}
+
+.form-footer a:hover {
+    text-decoration: underline;
+}
+
+
+.instruction {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.messages {
+    list-style: none;
+    margin: 12px 0;
+    padding: 0;
+}
+
+.messages li {
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 8px;
+    font-size: 0.95rem;
+}
+
+/* Success messages (green background) */
+.messages li.success {
+    background: #e6f4ea;
+    color: #2b7a34;
+    border: 1px solid #a4d4a2;
+}
+
+/* Error messages (light red) */
+.messages li.error {
+    background: #fcebea;
+    color: #a12b2b;
+    border: 1px solid #e2a1a1;
+}
+
+/* ───── Form Container ───── */
+.form-container {
+    max-width: 400px;
+    margin: 60px auto;
+    background: #ffffff;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.form-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #0A1D56;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 500;
+    color: #333;
+}
+
+.form-group .form-select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 15px;
+}
+
+.btn.submit-btn {
+    width: 100%;
+    background-color: #0A1D56;
+    color: white;
+    padding: 14px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.btn.submit-btn:hover {
+    background-color: #092043;
+}
+
+.link-btn {
+    display: inline-block;
+    margin-top: 10px;
+    color: #004080;
+    text-decoration: none;
+    font-size: 0.95rem;
+}
+
+.link-btn:hover {
+    text-decoration: underline;
+}
+
+.error {
+    color: #e74c3c;
+    font-size: 0.85rem;
+    margin-top: 4px;
+}
+
+.messages {
+    list-style: none;
+    margin-bottom: 12px;
+    padding: 0;
+}
+
+.messages li.success {
+    background: #e6f4ea;
+    color: #2b7a34;
+    border: 1px solid #a4d4a2;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 8px;
+}
+
+.messages li.error {
+    background: #fcebea;
+    color: #a12b2b;
+    border: 1px solid #e2a1a1;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 8px;
+}
+
+/* Note under disabled button */
+.note {
+    font-size: 0.85rem;
+    color: #666;
+    text-align: center;
+    margin-top: 8px;
+}
+
+
+/* Profile Page Styles */
+.profile-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.img-thumbnail {
+    width: 100%;
+    max-width: 180px;
+    height: auto;
+    border-radius: 50%;
+    border: 3px solid #ff5722;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+}
+
+form h5 {
+    margin-top: 20px;
+    color: #333;
+    font-weight: 600;
+}
+
+.btn-primary {
+    background-color: #ff5722;
+    border-color: #ff5722;
+}
+
+.btn-primary:hover {
+    background-color: #e64a19;
+    border-color: #e64a19;
+}
+
+.alert {
+    margin-top: 15px;
+}
+
+hr {
+    border-top: 1px solid #ddd;
+}
+
+
+.username-link {
+    text-decoration: none;
+    color: white;
+    /* or whatever color contrasts against your header background */
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+.username-link:hover .username {
+    opacity: 0.8;
+}
+
+/* Make action buttons smaller in collector dashboard */
+.btn-sm {
+    font-size: 0.85rem;
+    padding: 4px 8px;
+}
+
+
+/* Balance Summary Styles */
+.balance-summary {
+    background-color: #f5f7fb;
+    border: 1px solid #dde5eb;
+    border-radius: 6px;
+    padding: 16px;
+    margin: 20px 0;
+}
+
+.balance-summary h3 {
+    font-size: 1.05rem;
+    margin-bottom: 10px;
+    color: #002d64;
+}
+
+.balance-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.balance-list li {
+    font-size: 0.95rem;
+    margin-bottom: 6px;
+}

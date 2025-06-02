@@ -1,0 +1,57 @@
+{% extends 'app/base.html' %}
+{% load static %}
+
+{% block title %}Collector Dashboard{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Collector Dashboard</h2>
+
+    {% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endfor %}
+    {% endif %}
+
+    {% if pending_proofs %}
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>User</th>
+                <th>Date</th>
+                <th>Plan (₦/day)</th>
+                <th>Uploaded At</th>
+                <th>Proof</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for proof in pending_proofs %}
+            <tr>
+                <td>{{ proof.user.username }}</td>
+                <td>{{ proof.date }}</td>
+                <td>₦{{ proof.plan.daily_amount }}</td>
+                <td>{{ proof.uploaded_at|date:"Y-m-d H:i" }}</td>
+                <td>
+                    <a href="{{ proof.proof_file.url }}" target="_blank">View</a>
+                </td>
+                <td>
+                    <a href="{% url 'approve_proof' proof.id %}" class="btn btn-sm btn-success">Approve</a>
+                    <a href="{% url 'reject_proof' proof.id %}" class="btn btn-sm btn-danger">Reject</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <div class="alert alert-info">No pending payment proofs at the moment.</div>
+    {% endif %}
+
+    <div class="mt-4">
+        <a href="{% url 'monthly_report' %}" class="btn btn-primary">View Monthly Report</a>
+    </div>
+</div>
+{% endblock %}

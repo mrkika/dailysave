@@ -1,0 +1,131 @@
+{% extends 'app/base.html' %}
+{% load static %}
+
+{% block title %}How It Works | Daily Save{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/how_it_works.css' %}">
+<link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+
+<!-- Header -->
+<header class="ds-header">
+    <div class="ds-left">
+        <div class="hamburger" id="hamburgerBtn">
+            <!-- Simple Hamburger Icon -->
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <img src="{% static 'images/logo.png' %}" alt="Daily Save Logo" class="ds-logo-img">
+    </div>
+    <div class="ds-user">
+        <a href="{% url 'profile' %}" class="profile-link">
+            {% if user.profile.photo %}
+            <img src="{{ user.profile.photo.url }}" alt="Profile Photo" class="profile-img">
+            {% else %}
+            <img src="{% static 'profile_pics/default.jpg' %}" alt="Default Avatar" class="profile-img">
+            {% endif %}
+        </a>
+        <a href="{% url 'profile' %}" class="username-link">
+            <span class="username">{{ request.user.first_name }}</span>
+        </a>
+    </div>
+</header>
+
+<!-- Top Menu (no extra <body> tag here) -->
+<nav class="top-menu" id="topMenu">
+    <a href="{% url 'dashboard' %}">Dashboard</a>
+    <a href="{% url 'how_it_works' %}">How It Works</a>
+    <a href="{% url 'payment_history' %}">Payment History</a>
+    <a href="{% url 'choose_plan' %}">Choose Plan</a>
+
+    <!-- Logout form (still inside nav, but no <body> tag) -->
+    <form method="POST" action="{% url 'logout' %}" style="display:inline; margin-left:1rem;">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger btn-sm">Logout</button>
+    </form>
+</nav>
+
+<div class="hiw-container">
+    <h1 class="hiw-title">How It Works</h1>
+
+    <div class="hiw-steps">
+
+        <!-- Step 1: Sign Up -->
+        <div class="hiw-step hiw-step-1">
+            <div class="hiw-icon">
+                <!-- Simple register icon (SVG) -->
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" class="hiw-svg">
+                    <circle cx="32" cy="20" r="12" fill="#4CAF50" />
+                    <path d="M16 50c0-8.837 7.163-16 16-16s16 7.163 16 16" fill="#4CAF50" />
+                </svg>
+            </div>
+            <div class="hiw-text">
+                <h2>1. Create Your Account</h2>
+                <p>Sign up in seconds with your phone number. You’ll get a unique Account ID to track all payments.</p>
+            </div>
+        </div>
+
+        <!-- Step 2: Choose a Plan -->
+        <div class="hiw-step hiw-step-2">
+            <div class="hiw-icon">
+                <!-- Plan icon (SVG) -->
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" class="hiw-svg">
+                    <rect x="8" y="16" width="48" height="32" rx="4" ry="4" fill="#2196F3" />
+                    <line x1="8" y1="28" x2="56" y2="28" stroke="#fff" stroke-width="4" />
+                    <line x1="8" y1="40" x2="56" y2="40" stroke="#fff" stroke-width="4" />
+                </svg>
+            </div>
+            <div class="hiw-text">
+                <h2>2. Choose a Daily Plan</h2>
+                <p>Select how much you want to save per day this month (e.g., ₦1,000/day). You can only change at the
+                    start of a new month.</p>
+            </div>
+        </div>
+
+        <!-- Step 3: Upload Payment Proof -->
+        <div class="hiw-step hiw-step-3">
+            <div class="hiw-icon">
+                <!-- Upload icon (SVG) -->
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" class="hiw-svg">
+                    <path d="M32 8v32M16 32l16-16 16 16" stroke="#FF9800" stroke-width="4" fill="none" />
+                    <rect x="16" y="36" width="32" height="16" rx="2" ry="2" fill="#FF9800" />
+                </svg>
+            </div>
+            <div class="hiw-text">
+                <h2>3. Upload Payment Proof</h2>
+                <p>Every day, make your payment in cash or POS and upload the receipt screenshot. We’ll mark it
+                    “Pending” until the collector approves.</p>
+            </div>
+        </div>
+
+        <!-- Step 4: Get Your Refund -->
+        <div class="hiw-step hiw-step-4">
+            <div class="hiw-icon">
+                <!-- Refund icon (SVG) -->
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" class="hiw-svg">
+                    <circle cx="32" cy="32" r="28" fill="#E91E63" />
+                    <path d="M32 16v10M24 24l8 8 8-8" stroke="#fff" stroke-width="4" fill="none" />
+                    <rect x="18" y="36" width="28" height="12" rx="2" ry="2" fill="#fff" />
+                    <line x1="24" y1="42" x2="40" y2="42" stroke="#E91E63" stroke-width="4" />
+                </svg>
+            </div>
+            <div class="hiw-text">
+                <h2>4. Receive Your Savings</h2>
+                <p>At month’s end, after deducting one day’s fee, your balance is ready. Collect your refund via mobile
+                    money or bank transfer.</p>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- JavaScript to toggle hamburger menu -->
+<script>
+    const hamburgerBtn = document.getElementById('hamburgerBtn');
+    const topMenu = document.getElementById('topMenu');
+    hamburgerBtn.addEventListener('click', () => {
+        topMenu.classList.toggle('menu-open');
+    });
+</script>
+{% endblock %}

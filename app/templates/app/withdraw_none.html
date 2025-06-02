@@ -1,0 +1,21 @@
+{% extends 'app/base.html' %}
+{% load static %}
+
+{% block title %}No Funds to Withdraw{% endblock %}
+
+{% block content %}
+<div class="container mt-4 mb-5 text-center">
+    <div class="alert alert-info">
+        <p><strong>No funds to withdraw yet.</strong></p>
+        <p>Please make and get approval for at least one payment this month to generate a refund.</p>
+    </div>
+    <p>You will be redirected to your dashboard in a few seconds...</p>
+</div>
+
+{# Auto-redirect script after 3 seconds #}
+<script>
+    setTimeout(function () {
+        window.location.href = "{% url 'dashboard' %}";
+    }, 3000);
+</script>
+{% endblock %}

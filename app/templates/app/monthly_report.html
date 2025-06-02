@@ -1,0 +1,47 @@
+{% extends 'app/base.html' %}
+{% load humanize %} {# for intcomma #}
+
+{% block title %}Monthly Report{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Monthly Report for {{ month }}/{{ year }}</h2>
+
+    {% if report_data %}
+    <div class="mb-3">
+        <a href="{% url 'monthly_report' %}?download=csv" class="btn btn-outline-secondary">
+            Download CSV
+        </a>
+    </div>
+
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Full Name</th>
+                <th>Total Paid</th>
+                <th>Collector Fee</th>
+                <th>Refund</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in report_data %}
+            <tr>
+                <td>{{ row.username }}</td>
+                <td>{{ row.full_name }}</td>
+                <td>₦{{ row.total_paid|intcomma }}</td>
+                <td>₦{{ row.collector_fee|intcomma }}</td>
+                <td>₦{{ row.refund|intcomma }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <div class="alert alert-info">No plans found for {{ month }}/{{ year }}.</div>
+    {% endif %}
+
+    <p class="mt-3">
+        <a href="{% url 'collector_dashboard' %}">&larr; Back to Collector Dashboard</a>
+    </p>
+</div>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends 'app/base.html' %}
+{% load static %}
+
+{% block title %}Withdraw Request{% endblock %}
+
+{% block content %}
+<div class="container mt-4 mb-5">
+    <h2>Withdraw Request</h2>
+
+    <p>Your net refund (after collector fee) is: <strong>₦{{ net_refund|intcomma }}</strong></p>
+    <p>Click the button below to request withdrawal of this amount.</p>
+
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Request Withdrawal</button>
+    </form>
+
+    <p class="mt-3">
+        <a href="{% url 'dashboard' %}">&larr; Back to Dashboard</a>
+    </p>
+</div>
+{% endblock %}

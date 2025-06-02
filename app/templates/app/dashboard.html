@@ -1,0 +1,201 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block title %}Welcome – Daily Save{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+
+<!-- Header -->
+<header class="ds-header">
+    <div class="ds-left">
+        <div class="hamburger" id="hamburgerBtn">
+            <!-- Simple Hamburger Icon -->
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <img src="{% static 'images/logo.png' %}" alt="Daily Save Logo" class="ds-logo-img">
+    </div>
+    <div class="ds-user">
+        <a href="{% url 'profile' %}" class="profile-link">
+            {% if user.profile.photo %}
+            <img src="{{ user.profile.photo.url }}" alt="Profile Photo" class="profile-img">
+            {% else %}
+            <img src="{% static 'profile_pics/default.jpg' %}" alt="Default Avatar" class="profile-img">
+            {% endif %}
+        </a>
+        <a href="{% url 'profile' %}" class="username-link">
+            <span class="username">{{ request.user.first_name }}</span>
+        </a>
+    </div>
+</header>
+
+<!-- Top Menu (no extra <body> tag here) -->
+<nav class="top-menu" id="topMenu">
+    <a href="{% url 'dashboard' %}">Dashboard</a>
+    <a href="{% url 'how_it_works' %}">How It Works</a>
+    <a href="{% url 'payment_history' %}">Payment History</a>
+    <a href="{% url 'choose_plan' %}">Choose Plan</a>
+
+    <!-- Logout form (still inside nav, but no <body> tag) -->
+    <form method="POST" action="{% url 'logout' %}" style="display:inline; margin-left:1rem;">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger btn-sm">Logout</button>
+    </form>
+</nav>
+
+<main class="dashboard-main">
+    <!-- Current Plan & Status -->
+    <section class="plan-box">
+        <h2>Your Plan</h2>
+        {% if plan %}
+        <p class="plan-amount">₦{{ plan.daily_amount|intcomma }} / day</p>
+        <p>Status: <span class="status active">Active</span></p>
+        <p><a href="{% url 'choose_plan' %}" class="link-btn">Update Plan</a></p>
+        {% else %}
+        <p>You have not chosen a plan for {{ now.month }}/{{ now.year }}.</p>
+        <p><a href="{% url 'choose_plan' %}" class="link-btn">Choose Plan</a></p>
+        {% endif %}
+    </section>
+
+    <!-- Balance Summary -->
+    {% if plan %}
+    <section class="balance-summary">
+        <h3>Your Monthly Breakdown</h3>
+        <ul class="balance-list">
+            <li><strong>Total Paid:</strong> ₦{{ total_paid|intcomma }}</li>
+            <li><strong>Collector Fee:</strong> ₦{{ collector_fee|intcomma }}</li>
+            <li><strong>Refund Amount:</strong> ₦{{ refund_amount|intcomma }}</li>
+        </ul>
+    </section>
+    {% endif %}
+
+
+    <!-- Upload Payment Proof (disabled if no plan) -->
+    <section class="upload-proof-main">
+        {% if plan %}
+        <a href="{% url 'upload_proof' %}" class="btn btn-primary w-100 mb-2">
+            📤 Upload Payment Proof
+        </a>
+        {% else %}
+        <button class="btn btn-secondary w-100 mb-2" disabled>📤 Upload Payment Proof</button>
+        <p class="note">Choose a plan first to upload proof.</p>
+        {% endif %}
+    </section>
+
+    <!-- Recent Payments (showing 3) -->
+    <section class="recent-payments">
+        <h2>Recent Payments</h2>
+        {% if recent_payments %}
+        {% for p in recent_payments %}
+        <div class="payment-item">
+            <div class="payment-info">
+                <p class="date">{{ p.date }}</p>
+                <p class="ref">Ref: {{ p.id }}</p>
+            </div>
+            <div class="payment-status">
+                <p class="amount">₦{{ plan.daily_amount }}</p>
+                {% if p.status == 'PENDING' %}
+                <p class="status pending">Pending</p>
+                {% elif p.status == 'APPROVED' %}
+                <p class="status confirmed">Approved</p>
+                {% else %}
+                <p class="status rejected">Rejected</p>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+        <p><a href="{% url 'payment_history' %}">View All History &raquo;</a></p>
+        {% else %}
+        <p>No payments submitted yet for this month.</p>
+        {% endif %}
+    </section>
+
+    {# … earlier parts of dashboard.html … #}
+    
+    {# Payment Calendar #}
+    {% if plan %}
+    <section class="payment-calendar">
+        <h2>Payment Calendar – {{ now|date:"F Y" }}</h2>
+        <div class="calendar-grid">
+            {% for day_info in calendar_days %}
+            {% if day_info.status == 'FUTURE' %}
+            {# Future days remain clickable to upload proof #}
+            <a href="{% url 'upload_proof' %}?date={{ day_info.day }}" class="cal-cell future">
+                {{ day_info.day }}
+            </a>
+            {% elif day_info.status == 'APPROVED' %}
+            {# Approved days link to payment_detail #}
+            <a href="{% url 'payment_detail' day_info.proof_id %}" class="cal-cell approved">
+                {{ day_info.day }}
+            </a>
+            {% elif day_info.status == 'PENDING' %}
+            {# Pending days link to payment_detail #}
+            <a href="{% url 'payment_detail' day_info.proof_id %}" class="cal-cell pending">
+                {{ day_info.day }}
+            </a>
+            {% elif day_info.status == 'REJECTED' %}
+            {# Rejected days link to payment_detail #}
+            <a href="{% url 'payment_detail' day_info.proof_id %}" class="cal-cell rejected">
+                {{ day_info.day }}
+            </a>
+            {% else %}
+            {# Missed days (no link), show alert onclick #}
+            <div class="cal-cell missed"
+                onclick="alert('You missed {{ now.year }}-{{ now.month }}-{{ day_info.day }}. Stay consistent by uploading your daily proof on time!')">
+                {{ day_info.day }}
+            </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+    
+        <div class="calendar-legend">
+            <span class="legend-box approved"></span> Approved
+            <span class="legend-box pending"></span> Pending
+            <span class="legend-box missed"></span> Missed
+            <span class="legend-box future"></span> Future
+            <span class="legend-box rejected"></span> Rejected
+        </div>
+    </section>
+    {% else %}
+    <section class="no-plan-note">
+        <p>Please <a href="{% url 'choose_plan' %}">choose a plan</a> to see your payment calendar.</p>
+    </section>
+    {% endif %}
+
+
+    
+    {# … following parts of dashboard.html … #}
+
+
+    <!-- Quick Actions -->
+    <section class="actions">
+        <a href="{% url 'deposit_request' %}" class="action-btn deposit-btn">💰 Deposit</a>
+        <a href="{% url 'withdraw_request' %}" class="action-btn withdraw-btn">🏧 Withdraw</a>
+        <a href="{% url 'choose_plan' %}" class="action-btn plan-btn">📝 Update Plan</a>
+        <a href="{% url 'payment_history' %}" class="action-btn history-btn">📊 View History</a>
+    </section>
+      
+</main><br><br>
+
+<!-- “Need Help?” Floating Button -->
+<button class="help-btn">?</button>
+
+<!-- Footer -->
+<footer class="dashboard-footer">
+    <a href="{% url 'privacy_policy' %}">Privacy Policy</a> •
+    <a href="{% url 'terms' %}">Terms & Conditions</a> •
+    © 2025 Daily Save
+</footer>
+
+<!-- JavaScript to toggle hamburger menu -->
+<script>
+    const hamburgerBtn = document.getElementById('hamburgerBtn');
+    const topMenu = document.getElementById('topMenu');
+    hamburgerBtn.addEventListener('click', () => {
+        topMenu.classList.toggle('menu-open');
+    });
+</script>
+{% endblock %}

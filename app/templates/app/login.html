@@ -1,0 +1,39 @@
+{% extends 'app/base.html' %}
+{% load static %}
+
+{% block title %}Login | Daily Save{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <h2>Welcome Back</h2>
+    {% if messages %}
+    <ul class="messages">
+        {% for msg in messages %}
+        <li class="{{ msg.tags }}">{{ msg }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+    <form method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="phone">Username</label><br>
+            <input type="tel" id="phone" name="username" placeholder="0801234567789" required>
+        </div>
+        <br />
+        <div class="form-group">
+            <label for="password">Password</label><br>
+            <input type="password" id="password" name="password" required>
+        </div>
+        <br />
+        <button type="submit" class="btn submit-btn">Login</button>
+    </form>
+
+    <p class="form-footer">
+        <a href="{% url 'forgot_password_step1' %}">Forgot Password?</a>
+    </p>
+    <p class="switch-link">
+        Don’t have an account? <a href="{% url 'register' %}">Register here</a>
+    </p>
+</div>
+{% endblock %}

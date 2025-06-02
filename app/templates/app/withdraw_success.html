@@ -1,0 +1,15 @@
+{% extends 'app/base.html' %}
+{% load static %}
+
+{% block title %}Withdraw Request Submitted{% endblock %}
+
+{% block content %}
+<div class="container mt-4 mb-5">
+    <h2>Withdraw Request Submitted</h2>
+    <div class="alert alert-success">
+        <p>Your withdraw request for <strong>₦{{ amount|intcomma }}</strong> has been submitted. The collector/admin
+            will process it shortly.</p>
+    </div>
+    <p><a href="{% url 'dashboard' %}" class="btn btn-secondary mt-3">Return to Dashboard</a></p>
+</div>
+{% endblock %}

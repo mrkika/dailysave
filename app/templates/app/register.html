@@ -1,0 +1,79 @@
+{% extends 'app/base.html' %}
+{% load static %}
+
+
+{% block title %}Register | Daily Save{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <h2>Create Your Account</h2>
+    <form method="POST">
+        {% csrf_token %}
+
+        <!-- Full Name -->
+        <div class="form-group">
+            {{ form.full_name.label_tag }}
+            {{ form.full_name }}
+            {% if form.full_name.errors %}
+            <p class="error">{{ form.full_name.errors.0 }}</p>
+            {% endif %}
+        </div>
+
+        <!-- Phone -->
+        <div class="form-group">
+            {{ form.phone.label_tag }}
+            {{ form.phone }}
+            {% if form.phone.errors %}
+            <p class="error">{{ form.phone.errors.0 }}</p>
+            {% endif %}
+        </div>
+
+        <!-- Email -->
+        <div class="form-group">
+            {{ form.email.label_tag }}
+            {{ form.email }}
+            {% if form.email.errors %}
+            <p class="error">{{ form.email.errors.0 }}</p>
+            {% endif %}
+        </div>
+
+        <!-- Password1 -->
+        <div class="form-group">
+            {{ form.password1.label_tag }}
+            {{ form.password1 }}
+            {% if form.password1.errors %}
+            <p class="error">{{ form.password1.errors.0 }}</p>
+            {% endif %}
+        </div>
+
+        <!-- Password2 -->
+        <div class="form-group">
+            {{ form.password2.label_tag }}
+            {{ form.password2 }}
+            {% if form.password2.errors %}
+            <p class="error">{{ form.password2.errors.0 }}</p>
+            {% endif %}
+        </div>
+
+        <!-- Terms & Conditions Checkbox -->
+        <div class="form-group checkbox">
+            {{ form.terms }}
+            <label for="{{ form.terms.id_for_label }}">
+                I agree to the
+                <a href="{% url 'terms' %}" target="_blank">Terms & Conditions</a>
+            </label>
+            {% if form.terms.errors %}
+            <p class="error">{{ form.terms.errors.0 }}</p>
+            {% endif %}
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="btn submit-btn">Register</button>
+    </form>
+
+    <p class="switch-link">
+        Already have an account?
+        <a href="{% url 'login' %}">Login here</a>
+    </p>
+</div>
+{% endblock %}

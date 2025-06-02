@@ -1,0 +1,18 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block title %}Deposit Reference Generated{% endblock %}
+
+{% block content %}
+<div class="container mt-4 mb-5">
+    <h2>Deposit Reference Generated</h2>
+    <div class="alert alert-success">
+        <p>Your deposit reference is: <strong>{{ reference }}</strong></p>
+        <p>Amount: ₦{{ amount|intcomma }}</p>
+    </div>
+    <p>Give this reference to your collector when you make your POS or cash payment. Once you upload the proof of
+        payment, the collector can approve it immediately.</p>
+    <p><a href="{% url 'dashboard' %}" class="btn btn-secondary mt-3">Return to Dashboard</a></p>
+</div>
+{% endblock %}
