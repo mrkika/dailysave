@@ -128,6 +128,8 @@ STATICFILES_DIRS = [
     BASE_DIR / "app" / "static",
 ]
 
+os.makedirs(STATIC_ROOT, exist_ok=True)
+
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 

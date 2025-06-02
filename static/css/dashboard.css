@@ -1,0 +1,604 @@
+/* ───────── Reset & Global ───────── */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body.dashboard-page {
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    background: #f9f9f9;
+    color: #222;
+    position: relative;
+    min-height: 100vh;
+    padding-bottom: 60px;
+    /* space for footer */
+}
+
+/* ───────── Header ───────── */
+.ds-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #002d64;
+    padding: 16px;
+    color: white;
+}
+
+.ds-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.ds-logo {
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+/* Hamburger icon (for mobile) */
+.hamburger {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 24px;
+    height: 18px;
+    cursor: pointer;
+}
+
+.hamburger span {
+    display: block;
+    height: 3px;
+    background: white;
+    border-radius: 2px;
+}
+
+/* User Info */
+.ds-user {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.profile-img {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    object-fit: cover;
+    background: #ccc;
+    /* placeholder gray if no image */
+}
+
+.username {
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+/* ───────── Top Menu ───────── */
+.top-menu {
+    display: none;
+    /* hidden on mobile by default */
+    flex-direction: column;
+    background: #e0e0e0;
+    padding: 8px 0;
+}
+
+.top-menu a {
+    text-decoration: none;
+    color: #002d64;
+    font-weight: 500;
+    padding: 10px 16px;
+    font-size: 0.95rem;
+}
+
+.top-menu.menu-open {
+    display: flex;
+}
+
+/* ───────── Main Content ───────── */
+.dashboard-main {
+    padding: 12px 16px;
+}
+
+/* ───────── Plan Box ───────── */
+.plan-box {
+    background: #ffffff;
+    padding: 12px;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    margin-bottom: 12px;
+}
+
+.plan-box h2 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.plan-amount {
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 4px;
+}
+
+.status {
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.status.active {
+    color: #27ae60;
+    /* green */
+}
+
+.status.pending {
+    color: #e67e22;
+    /* orange */
+}
+
+.status.confirmed {
+    color: #2ecc71;
+    /* bright green */
+}
+
+.status.rejected {
+    color: #e74c3c;
+    /* red */
+}
+
+/* ───────── Upload Payment Proof ───────── */
+.upload-proof-main {
+    margin-bottom: 16px;
+    text-align: center;
+}
+
+.btn-upload {
+    background: #004080;
+    color: white;
+    font-size: 1rem;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.btn-upload:hover {
+    background: #003060;
+}
+
+/* ───────── Recent Payments ───────── */
+.recent-payments {
+    margin-bottom: 16px;
+}
+
+.recent-payments h2 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #002d64;
+}
+
+.payment-item {
+    display: flex;
+    justify-content: space-between;
+    background: #ffffff;
+    padding: 10px;
+    border-radius: 6px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+    margin-bottom: 8px;
+}
+
+.payment-info {
+    font-size: 0.85rem;
+    color: #555;
+}
+
+.payment-info .date {
+    margin-bottom: 4px;
+}
+
+.payment-info .ref {
+    font-size: 0.8rem;
+    color: #888;
+}
+
+.payment-status {
+    text-align: right;
+}
+
+.payment-status .amount {
+    font-size: 0.95rem;
+    font-weight: 500;
+    margin-bottom: 4px;
+}
+
+/* ───────── Quick Actions ───────── */
+.actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.action-btn {
+    background: #004080;
+    color: white;
+    font-size: 0.95rem;
+    padding: 10px 0;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.action-btn:hover {
+    background: #003060;
+}
+
+.deposit-btn::before {
+    content: "💰 ";
+}
+
+.withdraw-btn::before {
+    content: "🏧 ";
+}
+
+.plan-btn::before {
+    content: "📝 ";
+}
+
+.history-btn::before {
+    content: "📊 ";
+}
+
+/* ───────── “Need Help?” Floating Button ───────── */
+.help-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #27ae60;
+    /* green for help */
+    color: white;
+    width: 48px;
+    height: 48px;
+    border: none;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    font-weight: bold;
+    line-height: 1;
+    text-align: center;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    transition: background 0.3s ease;
+}
+
+.help-btn:hover {
+    background: #219150;
+}
+
+/* ───────── Footer ───────── */
+.dashboard-footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background: #e0e0e0;
+    text-align: center;
+    padding: 8px 0;
+    font-size: 0.8rem;
+    color: #444;
+}
+
+.dashboard-footer a {
+    text-decoration: none;
+    color: #002d64;
+    margin: 0 5px;
+}
+
+/* ───────── Responsive: Tablets & Up ───────── */
+@media (min-width: 600px) {
+
+    /* Hide hamburger, show top menu inline */
+    .hamburger {
+        display: none;
+    }
+
+    .top-menu {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        background: #e0e0e0;
+        padding: 8px 0;
+    }
+
+    .top-menu a {
+        margin: 0 12px;
+    }
+
+    .ds-header {
+        padding: 16px 24px;
+    }
+
+    .plan-box {
+        padding: 16px;
+    }
+
+    .recent-payments {
+        padding: 0 24px;
+    }
+
+    .actions {
+        gap: 16px;
+    }
+}
+
+/* ───────── Responsive: Desktop (Large) ───────── */
+@media (min-width: 900px) {
+    body.dashboard-page {
+        padding-bottom: 0;
+        /* footer can sit inline or be hidden */
+    }
+
+    .dashboard-main {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 24px;
+    }
+
+    .actions {
+        grid-template-columns: repeat(4, 1fr);
+        margin-top: 16px;
+    }
+
+    .help-btn {
+        /* keep it visible or shrink if desired */
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+        bottom: 20px;
+        right: 20px;
+    }
+}
+
+/* Prevent underlines and extra padding on profile links */
+.profile-link,
+.username-link {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.profile-link:hover .profile-img,
+.username-link:hover .username {
+    opacity: 0.8;
+}
+
+
+/* ── Calendar Container ── */
+.payment-calendar {
+    margin-bottom: 1.5rem;
+}
+
+.payment-calendar h2 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #002d64;
+    margin-bottom: 10px;
+}
+
+/* 7-column grid for each weekday */
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 6px;
+}
+
+/* Base cell: square + centered text */
+.calendar-grid .cal-cell {
+    position: relative;
+    width: 100%;
+    padding-top: 50%;
+    /* makes height equal to width */
+    border-radius: 4px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    color: white !important;
+    /* default text color */
+    background-color: #bdc3c7;
+    /* fallback gray if nothing else applies */
+}
+
+/* Base cell styling */
+.calendar-grid .cal-cell {
+    /* … size, centering, etc. … */
+    color: white !important;
+}
+
+/* Approved – green */
+.calendar-grid .cal-cell.approved {
+    background-color: #27ae60 !important;
+    color: white !important;
+}
+
+/* Pending – orange */
+.calendar-grid .cal-cell.pending {
+    background-color: #f39c12 !important;
+    color: white !important;
+}
+
+/* Missed – bright red */
+.calendar-grid .cal-cell.missed {
+    background-color: #e74c3c !important;
+    color: white !important;
+}
+
+/* Rejected – dark red */
+.calendar-grid .cal-cell.rejected {
+    background-color: #c0392b !important;
+    color: white !important;
+}
+
+/* Future – light gray, dark text */
+.calendar-grid .cal-cell.future {
+    background-color: #50595c !important;
+    color: #333 !important;
+}
+
+/* Make clickable cells (FUTURE or MISSED) occupy full square */
+.calendar-grid a.cal-cell {
+    display: flex;
+    text-decoration: none;
+}
+
+/* Legend styling below the grid */
+.calendar-legend {
+    margin-top: 8px;
+    font-size: 0.85rem;
+    color: #555;
+}
+
+.calendar-legend .legend-box {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    margin-right: 6px;
+    vertical-align: middle;
+    border-radius: 2px;
+}
+
+.calendar-legend .approved {
+    background-color: #27ae60;
+}
+
+.calendar-legend .pending {
+    background-color: #f39c12;
+}
+
+.calendar-legend .missed {
+    background-color: #e74c3c;
+}
+
+.calendar-legend .rejected {
+    background-color: #c0392b;
+}
+
+.calendar-legend .future {
+    background-color: #50595c;
+    margin-right: 10px;
+    color: #333;
+}
+
+
+/* Existing calendar CSS (with colored statuses) */
+
+.calendar-grid a.cal-cell {
+    display: flex;
+    text-decoration: none;
+}
+
+/* Missed days are red, so the popup <div> still shows red */
+.calendar-grid .cal-cell.missed {
+    background-color: #e74c3c !important;
+    color: white !important;
+    cursor: pointer;
+    /* show pointer to indicate clickable (alert) */
+}
+
+
+
+/* Payment History Table */
+.table-striped>tbody>tr:nth-of-type(odd) {
+    background-color: #f9fcff;
+    /* light blueish for zebra stripes */
+}
+
+.container h2 {
+    color: #002d64;
+    margin-bottom: 16px;
+}
+
+/* ── Quick Actions Container ── */
+.actions {
+    display: flex;
+    flex-wrap: wrap;
+    /* wrap onto next line on narrow screens */
+    gap: 12px;
+    /* space between buttons */
+    margin: 20px 0;
+    /* vertical spacing around the section */
+}
+
+/* Base style for each action button/link */
+.action-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1 1 140px;
+    /* grow to fill, but be at least 140px wide */
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: white;
+    padding: 10px 16px;
+    border-radius: 6px;
+    transition: background-color 0.2s ease;
+}
+
+/* Deposit Button (Green) */
+.deposit-btn {
+    background-color: #2ecc71;
+    /* emerald green */
+}
+
+.deposit-btn:hover {
+    background-color: #27ae60;
+}
+
+/* Withdraw Button (Blue) */
+.withdraw-btn {
+    background-color: #3498db;
+    /* blue */
+}
+
+.withdraw-btn:hover {
+    background-color: #2980b9;
+}
+
+/* Update Plan Button (Purple) */
+.plan-btn {
+    background-color: #9b59b6;
+    /* purple */
+}
+
+.plan-btn:hover {
+    background-color: #8e44ad;
+}
+
+/* View History Button (Orange) */
+.history-btn {
+    background-color: #e67e22;
+    /* orange */
+}
+
+.history-btn:hover {
+    background-color: #d35400;
+}
+
+/* Icon spacing: emoji followed by a small gap */
+.action-btn::before {
+    content: "";
+    display: inline-block;
+    width: 1em;
+    /* reserve space for the emoji/icon */
+    margin-right: 6px;
+}
+
+/* If you prefer to keep the emoji inline, reduce left padding instead: */
+.action-btn {
+    padding-left: 14px;
+    /* shift text right so emoji has breathing room */
+}
