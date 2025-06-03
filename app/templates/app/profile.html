@@ -5,6 +5,7 @@
 {% block content %}
 
 <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+
 <!-- Header -->
 <header class="ds-header">
     <div class="ds-left">
@@ -14,7 +15,7 @@
             <span></span>
             <span></span>
         </div>
-        <div class="ds-logo">Daily Save</div>
+        <img src="{% static 'images/logo.png' %}" alt="Daily Save Logo" class="ds-logo-img">
     </div>
     <div class="ds-user">
         <a href="{% url 'profile' %}" class="profile-link">
@@ -23,10 +24,10 @@
             {% else %}
             <img src="{% static 'profile_pics/default.jpg' %}" alt="Default Avatar" class="profile-img">
             {% endif %}
-
         </a>
         <a href="{% url 'profile' %}" class="username-link">
-            <span class="username">John Doe</span> </a>
+            <span class="username">{{ request.user.first_name }}</span>
+        </a>
     </div>
 </header>
 
