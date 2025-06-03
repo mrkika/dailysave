@@ -59,7 +59,7 @@ class UserUpdateForm(UserChangeForm):
 class ProfileUpdateForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ['photo', 'user_type']
+        fields = ['image', 'user_type']
         widgets = {
             'user_type': forms.Select(attrs={'class': 'form-control'}),
         }

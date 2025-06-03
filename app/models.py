@@ -62,15 +62,13 @@ class Profile(models.Model):
         on_delete=models.CASCADE,
         related_name='profile'
     )
-    image = models.ImageField(
-        upload_to='profile_pics/', default='profile_pics/default.jpg')
     user_type = models.CharField(
         max_length=20,
         choices=(('client', 'Client'), ('professional', 'Professional')),
         default='client'
     )
     # Add this line (if you want users to upload a photo)
-    photo = models.ImageField(
+    image = models.ImageField(
         upload_to='profile_pics/',
         default='profile_pics/default.jpg',
         blank=True
@@ -78,6 +76,13 @@ class Profile(models.Model):
 
     def __str__(self):
         return f"{self.user.username} Profile"
+    
+
+def create_or_update_user_profile(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.create(user=instance)
+    else:
+        instance.profile.save()
 
 # Optionally, if you don’t already have a signal to create Profile when User is created:
 
