@@ -45,6 +45,8 @@ INSTALLED_APPS = [
     "app",
     'django.contrib.humanize',
     "crispy_forms",
+    'cloudinary',
+    'cloudinary_storage',
 ]
 
 MIDDLEWARE = [
@@ -130,10 +132,26 @@ STATICFILES_DIRS = [
 
 os.makedirs(STATIC_ROOT, exist_ok=True)
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
-WHITENOISE_ROOT = MEDIA_ROOT
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'duidylv2d',
+    'API_KEY': '691516671644594',
+    'API_SECRET': 'AZBNvnAeQbSSCCPHGddFExqSLxo'
+}
+
+MEDIA_URL = 'https://res.cloudinary.com/duidylv2d/'
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': os.getenv("duidylv2d"),
+    'API_KEY': os.getenv("691516671644594"),
+    'API_SECRET': os.getenv("AZBNvnAeQbSSCCPHGddFExqSLxo"),
+}
+
+
+
+
 
 
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
