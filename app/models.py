@@ -10,8 +10,12 @@ class ContributionPlan(models.Model):
     DAILY_CHOICES = [
         (500, '₦500 / day'),
         (1000, '₦1,000 / day'),
+        (2000, '₦2,000 / day'),
+        (3000, '₦3,000 / day'),
+        (4000, '₦4,000 / day'),
         (5000, '₦5,000 / day'),
         (10000, '₦10,000 / day'),
+        (15000, '₦15,000 / day'),
         (20000, '₦20,000 / day'),
         (50000, '₦50,000 / day'),
     ]
@@ -58,6 +62,8 @@ class Profile(models.Model):
         on_delete=models.CASCADE,
         related_name='profile'
     )
+    image = models.ImageField(
+        upload_to='profile_pics/', default='profile_pics/default.jpg')
     user_type = models.CharField(
         max_length=20,
         choices=(('client', 'Client'), ('professional', 'Professional')),
