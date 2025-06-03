@@ -484,3 +484,20 @@ hr {
     font-size: 0.95rem;
     margin-bottom: 6px;
 }
+
+
+/* static/css/style.css */
+
+.profile-img {
+    width: 120px;
+    /* set a fixed width (adjust as needed) */
+    height: 120px;
+    /* match width for a square */
+    border-radius: 50%;
+    /* make it circular */
+    object-fit: cover;
+    /* crop/scale properly */
+    border: 2px solid #007bff;
+    /* optional colored border */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
