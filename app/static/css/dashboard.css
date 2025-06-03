@@ -61,12 +61,17 @@ body.dashboard-page {
 }
 
 .profile-img {
-    width: 36px;
-    height: 36px;
+    width: 60px;
+    /* set a fixed width (adjust as needed) */
+    height: 60px;
+    /* match width for a square */
     border-radius: 50%;
+    /* make it circular */
     object-fit: cover;
-    background: #ccc;
-    /* placeholder gray if no image */
+    /* crop/scale properly */
+    border: 2px solid #007bff;
+    /* optional colored border */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .username {
