@@ -4,6 +4,7 @@ from django.utils import timezone
 from django.conf import settings
 from django.dispatch import receiver
 from django.db.models.signals import post_save
+from cloudinary.models import CloudinaryField
 
 
 class ContributionPlan(models.Model):
@@ -62,17 +63,14 @@ class Profile(models.Model):
         on_delete=models.CASCADE,
         related_name='profile'
     )
+    image = CloudinaryField('image', blank=True, null=True,
+                            default='profile_pics/default.jpg')
     user_type = models.CharField(
         max_length=20,
         choices=(('client', 'Client'), ('professional', 'Professional')),
         default='client'
     )
     # Add this line (if you want users to upload a photo)
-    image = models.ImageField(
-        upload_to='profile_pics/',
-        default='profile_pics/default.jpg',
-        blank=True
-    )
 
     def __str__(self):
         return f"{self.user.username} Profile"

@@ -21,8 +21,9 @@
     <div class="ds-user">
         <a href="{% url 'profile' %}" class="profile-link">
             {% if user.profile.image %}
-            <img src="{{ user.profile.image.url }}" alt="Profile Photo" class="profile-img">
+            <img src="{{ user.profile.image.url }}" alt="{{ user.username }}" class="profile-img">
             {% else %}
+            <p>Debug: no image set</p>
             <img src="{% static 'profile_pics/default.jpg' %}" alt="Default Avatar" class="profile-img">
             {% endif %}
         </a>

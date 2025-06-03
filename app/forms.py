@@ -48,12 +48,15 @@ class PlanForm(forms.ModelForm):
         }
 
 
-class UserUpdateForm(UserChangeForm):
-    password = None  # Hide the password field in this form
-
+class UserUpdateForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ['first_name', 'last_name', 'email']
+        fields = ['first_name', 'last_name', 'email']  # adjust as needed
+        widgets = {
+            'first_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'last_name':  forms.TextInput(attrs={'class': 'form-control'}),
+            'email':      forms.EmailInput(attrs={'class': 'form-control'}),
+        }
 
 
 class ProfileUpdateForm(forms.ModelForm):

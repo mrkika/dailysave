@@ -134,24 +134,14 @@ os.makedirs(STATIC_ROOT, exist_ok=True)
 
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
-
 CLOUDINARY_STORAGE = {
     'CLOUD_NAME': 'duidylv2d',
-    'API_KEY': '691516671644594',
-    'API_SECRET': 'AZBNvnAeQbSSCCPHGddFExqSLxo'
-}
-
-MEDIA_URL = 'https://res.cloudinary.com/duidylv2d/'
-
-CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': os.getenv("duidylv2d"),
-    'API_KEY': os.getenv("691516671644594"),
-    'API_SECRET': os.getenv("AZBNvnAeQbSSCCPHGddFExqSLxo"),
+    'API_KEY': '512249381587954',
+    'API_SECRET': 'JlJ-0cqBMw-475nstC7kUcZApT8',
 }
 
 
-
-
+MEDIA_URL = f"https://res.cloudinary.com/{CLOUDINARY_STORAGE['CLOUD_NAME']}/"
 
 
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"

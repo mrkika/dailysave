@@ -47,7 +47,6 @@
 <div class="container mt-4">
     <h2>My Profile</h2>
 
-    {# Show messages, e.g. “Your profile has been updated.” #}
     {% if messages %}
     {% for message in messages %}
     <div class="alert alert-{{ message.tags }}">
@@ -56,51 +55,58 @@
     {% endfor %}
     {% endif %}
 
-    <div class="row g-4 align-items-center">
-        <div class="col-md-4 text-center">
+    <div class="row">
+        <div class="col-md-4">
             {% if user.profile.image %}
-            <img src="{{ user.profile.image.url }}" alt="Profile Picture" class="img-thumbnail">
+            <img src="{{ user.profile.image.url }}" alt="{{ user.username }}" class="img-thumbnail profile-img">
             {% else %}
-            <img src="{% static 'profile_pics/default.jpg' %}" alt="Default Avatar" class="img-thumbnail">
+            <img src="{% static 'profile_pics/default.jpg' %}" alt="Default Avatar" class="img-thumbnail profile-img">
             {% endif %}
-            </div>
-    
+        </div>
+
         <div class="col-md-8">
-            <form method="POST" enctype="multipart/form-data" class="p-3 border rounded bg-light shadow-sm">
+            <!-- NOTE: enctype is required for file uploads -->
+            <form method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
-    
+
                 <h5>Account Info</h5>
-                <div class="form-group mb-3">
+                <div class="form-group">
                     {{ u_form.first_name.label_tag }}
                     {{ u_form.first_name }}
+                    {{ u_form.first_name.errors }}
                 </div>
-                <div class="form-group mb-3">
+                <div class="form-group">
                     {{ u_form.last_name.label_tag }}
                     {{ u_form.last_name }}
+                    {{ u_form.last_name.errors }}
                 </div>
-                <div class="form-group mb-3">
+                <div class="form-group">
                     {{ u_form.email.label_tag }}
                     {{ u_form.email }}
+                    {{ u_form.email.errors }}
                 </div>
-    
+
                 <hr>
-    
+
                 <h5>Profile Settings</h5>
-                <div class="form-group mb-3">
+                <div class="form-group">
                     {{ p_form.image.label_tag }}
                     {{ p_form.image }}
+                    {{ p_form.image.errors }}
                 </div>
-                <div class="form-group mb-3">
+                <div class="form-group">
                     {{ p_form.user_type.label_tag }}
                     {{ p_form.user_type }}
+                    {{ p_form.user_type.errors }}
                 </div>
-    
-                <button type="submit" class="btn btn-primary mt-3 w-100">
+
+                <button type="submit" class="btn btn-primary mt-3">
                     Save Changes
                 </button>
             </form>
         </div>
     </div>
+</div>
     
 
     <hr>
