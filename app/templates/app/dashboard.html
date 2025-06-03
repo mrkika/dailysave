@@ -20,8 +20,8 @@
     </div>
     <div class="ds-user">
         <a href="{% url 'profile' %}" class="profile-link">
-            {% if user.profile.photo %}
-            <img src="{{ user.profile.photo.url }}" alt="Profile Photo" class="profile-img">
+            {% if user.profile.image %}
+            <img src="{{ user.profile.image.url }}" alt="Profile Photo" class="profile-img">
             {% else %}
             <img src="{% static 'profile_pics/default.jpg' %}" alt="Default Avatar" class="profile-img">
             {% endif %}
