@@ -61,7 +61,7 @@
             {% if user.profile.photo %}
             <img src="{{ user.profile.photo.url }}" alt="Profile Picture" class="img-thumbnail">
             {% else %}
-            <img src="{% static 'profile_pics/default.jpg' %}" alt="Default Avatar" class="img-thumbnail">
+            <img src="{{ user.profile.image.url }}" alt="Profile Picture">
             {% endif %}
         </div>
     
