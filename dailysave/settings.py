@@ -28,7 +28,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-w(d!$$bpx*y$ih64x*o27v-=e5&s4*r9t6!@+djjb!w3+y@#tq"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv("DJANGO_DEBUG", "True") == "True"
+DEBUG = os.getenv("DEBUG", "False") == "True"
 SECRET_KEY = os.getenv("SECRET_KEY", "unsafe-default")
 ALLOWED_HOSTS = ['*']
 
@@ -130,6 +130,12 @@ STATICFILES_DIRS = [
 
 os.makedirs(STATIC_ROOT, exist_ok=True)
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+
+WHITENOISE_ROOT = MEDIA_ROOT
+
+
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 
@@ -141,9 +147,6 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # Auto-expire session after X seconds of inactivity
 SESSION_COOKIE_AGE = 600  # 10 minutes
 SESSION_SAVE_EVERY_REQUEST = True  # Refresh session on each request
-
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
 
 ADMINS = [
     ('Site Admin', 'ebudestinyaugustine@gmail.com'),
