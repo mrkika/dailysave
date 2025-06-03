@@ -23,7 +23,7 @@
             {% if user.profile.photo %}
             <img src="{{ user.profile.photo.url }}" alt="Profile Photo" class="profile-img">
             {% else %}
-            <img src="{{ user.profile.image.url }}" alt="Profile Picture" class="profile-img">
+            <img src="{% static 'profile_pics/default.jpg' %}" alt="Default Avatar" class="profile-img">
             {% endif %}
         </a>
         <a href="{% url 'profile' %}" class="username-link">
