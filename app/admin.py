@@ -12,7 +12,8 @@ class DepositRequestAdmin(admin.ModelAdmin):
 
 @admin.register(WithdrawRequest)
 class WithdrawRequestAdmin(admin.ModelAdmin):
-    list_display = ('user', 'amount', 'status', 'requested_at')
+    list_display = ('user', 'amount', 'status', 'requested_at',
+                    'bank_name', 'account_number', 'account_name')
     list_filter = ('status',)
     ordering = ('-requested_at',)
-    search_fields = ('user__username',)
+    search_fields = ('user__username', 'account_name', 'account_number')

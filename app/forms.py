@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from .models import ContributionPlan, Profile, PaymentProof, DepositRequest, WithdrawRequest
 from django.utils.crypto import get_random_string
+from django.contrib.auth import authenticate
 
 
 class RegisterForm(UserCreationForm):
@@ -103,9 +104,32 @@ class DepositRequestForm(forms.ModelForm):
 
 
 class WithdrawRequestForm(forms.ModelForm):
+    # Extra fields
+    password = forms.CharField(widget=forms.PasswordInput, label="Password")
+    confirm_password = forms.CharField(
+        widget=forms.PasswordInput, label="Confirm Password")
+
     class Meta:
         model = WithdrawRequest
-        fields = []  # amount will be calculated in view
+        fields = ['bank_name', 'account_number',
+                  'account_name']  # Don't include amount
+
+    def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop('user', None)
+        super().__init__(*args, **kwargs)
+
+    def clean(self):
+        cleaned_data = super().clean()
+        password = cleaned_data.get('password')
+        confirm_password = cleaned_data.get('confirm_password')
+
+        if password != confirm_password:
+            raise forms.ValidationError("Passwords do not match.")
+
+        if not authenticate(username=self.user.username, password=password):
+            raise forms.ValidationError("Invalid password.")
+
+        return cleaned_data
 
     def save(self, commit=True, user=None, amount=None):
         withdraw = super().save(commit=False)

@@ -507,13 +507,8 @@ def deposit_request(request):
 
 @login_required
 def withdraw_request(request):
-    """
-    On GET:
-      If no net_refund, show “No funds to withdraw yet” then auto-redirect after a few seconds.
-      Otherwise, show the withdraw form.
-    On POST: create a WithdrawRequest and show a “Withdraw Submitted” page.
-    """
     now = timezone.localtime()
+
     try:
         plan = ContributionPlan.objects.get(
             user=request.user,
@@ -535,18 +530,17 @@ def withdraw_request(request):
     net_refund = total_paid - collector_fee
 
     if net_refund <= 0:
-        # Show a temporary “No Funds” page that auto-redirects back after 3 seconds
         return render(request, 'app/withdraw_none.html')
 
     if request.method == 'POST':
-        form = WithdrawRequestForm(request.POST)
+        form = WithdrawRequestForm(request.POST, user=request.user)
         if form.is_valid():
-            withdraw = form.save(user=request.user, amount=net_refund)
+            form.save(user=request.user, amount=net_refund)
             return render(request, 'app/withdraw_success.html', {
                 'amount': net_refund,
             })
     else:
-        form = WithdrawRequestForm()
+        form = WithdrawRequestForm(user=request.user)
 
     return render(request, 'app/withdraw_request.html', {
         'form': form,
